@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/background_01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@drawable/background_02"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/uploadImgView"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_marginStart="150dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="150dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_avt_default"
+                tools:visibility="visible" />
+
+
+            <ImageButton
+                android:id="@+id/homeBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/none"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_home" />
+
+            <ImageButton
+                android:id="@+id/logoutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_logout" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="332dp"
+            android:layout_height="474dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/background_03"
+            app:layout_constraintBottom_toTopOf="@+id/editProfileBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.483"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="36dp"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/main_back"
+                android:textSize="34dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/topicCount"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="123"
+                android:textColor="@color/main_back"
+                android:textSize="34dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="53dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="15dp"
+                android:text="Topics"
+                android:textColor="@color/main_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/topicCount" />
+
+            <TextView
+                android:id="@+id/accAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="40dp"
+                android:text="Tuổi tài khoản"
+                android:textColor="@color/main_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <TextView
+                android:id="@+id/oldPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="50dp"
+                android:text="Tên người dùng"
+                android:textColor="@color/main_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="160dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="Tên người dùng"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/accAge" />
+
+            <TextView
+                android:id="@+id/mobile"
+                android:layout_width="160dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="0972873307"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
+
+            <TextView
+                android:id="@+id/gender"
+                android:layout_width="160dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="12dp"
+                android:gravity="center"
+                android:text="username"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mobile" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="34dp"
+                android:text="Số điện thoại"
+                android:textColor="@color/main_back"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/oldPass" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="34dp"
+                android:text="Giới tính"
+                android:textColor="@color/main_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+            <Button
+                android:id="@+id/resetPassBtn"
+                android:layout_width="257dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="112dp"
+                android:layout_marginEnd="36dp"
+                android:text="Thay mật khẩu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/editProfileBtn"
+            android:layout_width="317dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="5dp"
+            android:text="Chỉnh Sửa"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
