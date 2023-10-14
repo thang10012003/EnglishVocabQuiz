@@ -1,5 +1,7 @@
 package com.tdtu.englishvocabquiz;
 
+import static kotlinx.coroutines.DelayKt.delay;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -35,7 +37,6 @@ import java.util.UUID;
 
 public class EditProfileActivity extends AppCompatActivity {
     ActivityEditProfileBinding binding;
-    private FirebaseAuth auth;
     private FirebaseDatabase db;
     private DatabaseReference ref;
     AlertDialog.Builder alertDialogBuilder;
@@ -65,14 +66,9 @@ public class EditProfileActivity extends AppCompatActivity {
         binding = ActivityEditProfileBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        //firebase init
-        auth = FirebaseAuth.getInstance();
+
         //user database
         db = FirebaseDatabase.getInstance();
-
-        //fibaseapp init, storage image
-         FirebaseApp.initializeApp(EditProfileActivity.this);
-        storageRef = FirebaseStorage.getInstance().getReference();
 
         //alert dialog
         alertDialogBuilder = new AlertDialog.Builder(this);
@@ -81,6 +77,17 @@ public class EditProfileActivity extends AppCompatActivity {
 
         //load data from firebase db
          showDataFromProfileUser();
+
+        //review profile
+        binding.reviewProfileBtn.setEnabled(false);
+        binding.reviewProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditProfileActivity.this,ProfileActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         //back home
         binding.backBtn.setOnClickListener(new View.OnClickListener(){
@@ -91,11 +98,16 @@ public class EditProfileActivity extends AppCompatActivity {
 
             }
         });
+
         //upload img
         binding.uploadImgView.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
+                //fibaseapp init, storage image
+                FirebaseApp.initializeApp(EditProfileActivity.this);
+                storageRef = FirebaseStorage.getInstance().getReference();
+                //show folder to choose img
                 Intent i = new Intent(Intent.ACTION_PICK);
                 i.setType("image/*");
                 activityResultLauncher.launch(i); //choose img and show on ImageView
@@ -124,33 +136,32 @@ public class EditProfileActivity extends AppCompatActivity {
                 if(name.isEmpty()){
                     Toast.makeText(EditProfileActivity.this, "Vui lòng điền tên !", Toast.LENGTH_SHORT).show();
                 }
-                else if(mobile.isEmpty()){
+                if(mobile.isEmpty()){
                     Toast.makeText(EditProfileActivity.this, "Vui lòng điền số điệnt thoại.", Toast.LENGTH_SHORT).show();
                 }
-                else{
-                     alert = alertDialogBuilder.create();
-                    alert.show();
-                    //add image to firebase
-                    //if user want to upload img then upload on firebase db
-                    String imgName=null;
-                    if(image != null){
-                        imgName = uploadImg(image);//
-                    }
+
+
                     //handle update - if having image will insert but wont
-                    updateDataUser(name,mobile,gender,imgName);
-                    //return profile
-                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
-                    finish();
+                    updateDataUser(name,mobile,gender);
 
 
-                }
+
+
 
 
             }
         });
     }
 
-    private void updateDataUser(String name, String mobile, String gender,String avt) {
+    private void updateDataUser(String name, String mobile, String gender) {
+        alert = alertDialogBuilder.create();
+        alert.show();
+        //if user want to upload img then upload on firebase db
+        String avt = null;
+        if(image != null){
+            avt = uploadImg(image);//
+        }
+        FirebaseAuth auth = FirebaseAuth.getInstance();
         String uid = auth.getCurrentUser().getUid();
         ref = db.getReference("users").child(uid);
 
@@ -168,17 +179,17 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onSuccess(Void unused) {
                 alert.dismiss();
                 Toast.makeText(EditProfileActivity.this, "Cập nhật thông tin thành công.", Toast.LENGTH_SHORT).show();
+                binding.reviewProfileBtn.setEnabled(true);
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        alert.dismiss();
                         Toast.makeText(EditProfileActivity.this, "Cập nhật thông tin thất bại !.", Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
-
     private void showDataFromProfileUser() {
         Intent i = getIntent();
         Bundle  bundle = i.getExtras();
@@ -195,22 +206,32 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private String uploadImg(Uri image) {
+        //set progress alert
+//        alertDialogBuilder.setMessage("Đang tải ảnh lên hệ thống...");
+//        AlertDialog imgAlert = alertDialogBuilder.create();
+//        imgAlert.show();
+
+        //set submit prevent
+        binding.submitBtn.setEnabled(false);
+
         String imgName = UUID.randomUUID().toString();
         StorageReference Sref = storageRef.child("avatarImages/"+ imgName);
         Sref.putFile(image)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                binding.submitBtn.setEnabled(true);
                 Toast.makeText(EditProfileActivity.this, "Cập nhật ảnh thành công !", Toast.LENGTH_SHORT).show();
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        binding.submitBtn.setEnabled(true);
                         Toast.makeText(EditProfileActivity.this, "Cập nhật ảnh thất bại !", Toast.LENGTH_SHORT).show();
-
                     }
                 });
         return imgName;
+
     }
 }

@@ -25,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.tdtu.englishvocabquiz.databinding.ActivityLoginBinding;
 import com.tdtu.englishvocabquiz.databinding.ActivityProfileBinding;
 
 import java.io.Serializable;
@@ -102,11 +101,11 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
         //change password
-        binding.resetPassBtn.setOnClickListener(new View.OnClickListener(){
+        binding.changePasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfileActivity.this,"reset pass",Toast.LENGTH_LONG).show();
-                startActivity(new Intent(ProfileActivity.this,ChangePasswordActivity.class));
+                Intent intent = new Intent(ProfileActivity.this,UpdatePasswordActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -122,25 +121,9 @@ public class ProfileActivity extends AppCompatActivity {
                 //clone value to putExtra for edit profile
                 userCurrModel = new UserModel(data);
 
-                //set image if null will show default avatar
-               if(!data.getAvt().equals("Chưa có")){
-                    storageRef = FirebaseStorage.getInstance().getReference("avatarImages").child(data.getAvt());
-                    storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                       @Override
-                       public void onSuccess(Uri uri) {
-                           String imageUrl = uri.toString();
-                           Glide.with(getApplicationContext()).load(imageUrl).into(binding.uploadImgView);
+                //set avt
+                renderAvt(data.getAvt());
 
-                       }
-                   }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ProfileActivity.this, "Không thể tải ảnh đại diện !", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-               }else{
-                   Toast.makeText(ProfileActivity.this, "chưa có avatar", Toast.LENGTH_SHORT).show();
-               }
                 //set posts number
                 binding.topicCount.setText(String.valueOf(data.getPosts()));
                 //set name
@@ -148,7 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
                 //set age's account
                 LocalDate nowDate = LocalDate.now();
                 LocalDate userDate = LocalDate.parse(data.getCreateDate());
-                long ageAccount = ChronoUnit.DAYS.between(nowDate, userDate);
+                long ageAccount = ChronoUnit.DAYS.between( userDate ,nowDate);
                 binding.textView12.setText(String.valueOf(ageAccount+1));
                 //set gender
                binding.gender.setText(data.getGender());
@@ -163,5 +146,27 @@ public class ProfileActivity extends AppCompatActivity {
 
            }
        });
+    }
+
+    private void renderAvt(String avt) {
+        //set image if null will show default avatar
+        if(!avt.equals("Chưa có")){
+            storageRef = FirebaseStorage.getInstance().getReference("avatarImages").child(avt);
+            storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    String imageUrl = uri.toString();
+                    Glide.with(getApplicationContext()).load(imageUrl).into(binding.uploadImgView);
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(ProfileActivity.this, "Không thể tải ảnh đại diện !", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            Toast.makeText(ProfileActivity.this, "chưa có avatar", Toast.LENGTH_SHORT).show();
+        }
     }
 }

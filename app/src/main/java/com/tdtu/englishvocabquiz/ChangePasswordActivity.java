@@ -29,6 +29,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private FirebaseDatabase db;
     private DatabaseReference ref;
     private FirebaseUser currUser;
+    private  String oldPass;
+    private  String newPass;
+    private  String confNewPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         //firebase init
-        auth = FirebaseAuth.getInstance();
+       auth = FirebaseAuth.getInstance();
         //get current user
         currUser = auth.getCurrentUser();
         //back btn
@@ -52,25 +55,25 @@ public class ChangePasswordActivity extends AppCompatActivity {
         binding.updateBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                String oldPass = binding.oldPassEdt.getText().toString().trim();
-                String newPass = binding.newPassEdt.getText().toString().trim();
-                String confNewPass = binding.confNewPassEdt.getText().toString().trim();
+                 oldPass = binding.oldPassEdt.getText().toString().trim();
+                 newPass = binding.newPassEdt.getText().toString().trim();
+                 confNewPass = binding.confNewPassEdt.getText().toString().trim();
                 //validate
                 if(oldPass.isEmpty()){
-                    Toast.makeText(ChangePasswordActivity.this,"Mật khẩu cũ chưa nhập !",Toast.LENGTH_LONG).show();
+                    binding.oldPassEdt.setError("Mật khẩu cũ chưa nhập !");
                 }else if(newPass.isEmpty() ){
-                    Toast.makeText(ChangePasswordActivity.this,"Mật khẩu mới chưa nhập !",Toast.LENGTH_LONG).show();
+                    binding.newPassEdt.setError("Mật khẩu mới chưa nhập !");
                 }else if(confNewPass.isEmpty() ){
-                    Toast.makeText(ChangePasswordActivity.this,"Mật khẩu xác nhận chưa nhập !",Toast.LENGTH_LONG).show();
+                    binding.confNewPassEdt.setError("Mật khẩu xác nhận chưa nhập !");
                 }
                 else if(!confNewPass.equals(newPass) ){
-                    Toast.makeText(ChangePasswordActivity.this,"Mật khẩu xác nhận chưa trùng khớp !",Toast.LENGTH_LONG).show();
+                    binding.confNewPassEdt.setError("Mật khẩu xác nhận chưa trùng khớp !");
                 }
-                else{
-                    String email = currUser.getEmail();
-                    AuthCredential credential = EmailAuthProvider.getCredential(email,oldPass);
+
+                    String email = currUser.getEmail().trim();
+                 AuthCredential  credential = EmailAuthProvider.getCredential("tien42@gmail.com","123123");
                     //re-auth
-                    currUser.reauthenticate((credential))
+                    currUser.reauthenticate(credential)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -80,8 +83,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if(task.isSuccessful()){
                                                     Toast.makeText(ChangePasswordActivity.this,"Cập nhật thành công !",Toast.LENGTH_LONG).show();
-//                                                    startActivity(new Intent(ChangePasswordActivity.this,MainActivity.class));
-//                                                    finish();
+                                                    startActivity(new Intent(ChangePasswordActivity.this,MainActivity.class));
+                                                    finish();
                                                 }else{
                                                     Toast.makeText(ChangePasswordActivity.this,"Không thể cập nhất mới mật khẩu !",Toast.LENGTH_LONG).show();
                                                 }
@@ -90,13 +93,12 @@ public class ChangePasswordActivity extends AppCompatActivity {
                                     }else{
                                         Log.d(TAG, "Error auth failed");
                                         Toast.makeText(ChangePasswordActivity.this,"Mật khẩu cũ không chính xác !",Toast.LENGTH_LONG).show();
-
                                     }
                                 }
                             });
                 }
 
-            }
+
         });
     }
 }
