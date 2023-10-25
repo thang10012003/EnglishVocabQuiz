@@ -10,6 +10,9 @@ android {
     viewBinding{
         enable = true
     }
+    buildFeatures{
+        viewBinding = true
+    }
 
     defaultConfig {
         applicationId = "com.tdtu.englishvocabquiz"

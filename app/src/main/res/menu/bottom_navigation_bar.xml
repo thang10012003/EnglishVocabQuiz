@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/navigationHome"
+        android:title="Trang chủ"
+        android:icon="@drawable/baseline_search_24" />
+    <item
+        android:id="@+id/navigationSolutions"
+        android:title="Lời giải"
+        android:icon="@drawable/book"/>
+    <item
+        android:id="@+id/navigationAdd"
+        android:title=""
+        android:icon="@drawable/baseline_add_circle_outline_24" />
+    <item
+        android:id="@+id/navigationLibrary"
+        android:title="Thư viện"
+        android:icon="@drawable/baseline_folder_open_24" />
+    <item
+        android:id="@+id/navigationUser"
+        android:title="Hồ sơ"
+        android:icon="@drawable/baseline_person_24" />
+
+</menu>

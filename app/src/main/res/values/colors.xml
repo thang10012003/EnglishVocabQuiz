@@ -6,4 +6,13 @@
     <color name="main_back2">#1B89D5</color>
     <color name="hint">#019590</color>
     <color name="none">#00FDFDFD</color>
+    <color name="green">#748B80</color>
+    <color name="red">#C82B2B</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="grey">#A9A9A9</color>
+    <color name="green_dark">#304848</color>
+
+
+
+
 </resources>

@@ -9,68 +9,72 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/background_01"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/background_main">
 
-        <Button
-            android:id="@+id/signInBtn"
-            android:layout_width="309dp"
-            android:layout_height="53dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/button_02"
-            android:text="Đăng Nhập"
-            app:layout_constraintBottom_toTopOf="@+id/signUpBtn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/signUpBtn"
-            android:layout_width="309dp"
-            android:layout_height="53dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/button_01"
-            android:text="Đăng Ký"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signInBtn" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="150dp"
-            android:layout_marginTop="278dp"
+            android:layout_marginTop="100dp"
             android:layout_marginEnd="150dp"
             android:layout_marginBottom="162dp"
-            app:layout_constraintBottom_toTopOf="@+id/signInBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/ic_launcher_foreground" />
-
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tvWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="175dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="175dp"
-            android:text="Xin chào !"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Chào mừng bạn"
+            app:layout_constraintTop_toBottomOf="@id/imageView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:layout_marginTop="20dp"/>
+        <Button
+            android:id="@+id/signInBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvWelcome"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="150dp"
+            android:text="Đăng nhập"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:backgroundTint="@color/green"
+            android:gravity="center"/>
+        <Button
+            android:id="@+id/signUpBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/signInBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            android:text="Đăng ký"
+            android:textSize="30sp"
+            android:textColor="@color/yellow"
+            android:textStyle="bold"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:backgroundTint="@color/green"
+            android:gravity="center"/>
+
+
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
